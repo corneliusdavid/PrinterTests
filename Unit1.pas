@@ -13,10 +13,6 @@ type
     btnSendListToPrinter: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnSendListToPrinterClick(Sender: TObject);
-  private
-    { Private declarations }
-  public
-    { Public declarations }
   end;
 
 var
@@ -30,9 +26,21 @@ uses
   Printers;
 
 procedure TfrmPrintersTest.btnSendListToPrinterClick(Sender: TObject);
+var
+  SelectedPrinter: TPrinter;
+  prnfile: TextFile;
+  i: Integer;
+  h: Integer;
 begin
-  if lbPrinterList.ItemIndex > -1 then
-    Printer.SetPrinter();
+  if lbPrinterList.ItemIndex > -1 then begin
+    Printer.PrinterIndex := lbPrinterList.ItemIndex;
+
+    Printer.BeginDoc;
+    h := Printer.Canvas.TextHeight('AZ');
+    for i := 0 to lbPrinterList.Count - 1 do
+      Printer.Canvas.TextOut(10, 10 + i * h, lbPrinterList.Items[i]);
+    Printer.EndDoc;
+  end;
 end;
 
 procedure TfrmPrintersTest.FormCreate(Sender: TObject);

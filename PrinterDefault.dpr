@@ -1,7 +1,6 @@
 program PrinterDefault;
 
 uses
-  ExceptionLog,
   Forms,
   Unit1 in 'Unit1.pas' {frmPrintersTest};
 
